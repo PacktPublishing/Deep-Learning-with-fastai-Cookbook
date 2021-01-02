@@ -3,4 +3,5 @@
 This folder contains the code samples related to chapter 2 "Exploring and cleaning up data with fast.ai"
 
 - fast.ai environment validation notebook: fastai_dataset_walkthrough.ipynb
+- tabular dataset examination notebook: examining_tabular_datasets.ipynb
 
