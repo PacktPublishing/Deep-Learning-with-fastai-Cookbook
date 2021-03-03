@@ -3,3 +3,4 @@
 - currently code up to chapter 3b
 - again test2
 - rebuild
+- rebuild mar2 again
