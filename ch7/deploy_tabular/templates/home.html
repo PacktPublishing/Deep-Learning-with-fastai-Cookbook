@@ -1,0 +1,230 @@
+<!DOCTYPE html> 
+<head> 
+	<title> 
+		Predicting whether an individual is going to have a salary of over 50k using a fastai model trained on ADULT_SAMPLE
+	</title> 
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}">
+</head> 
+<!-- <body onload="load_neighbourhood_dropdown()"> -->
+<body onload="load_selections()">
+<div class="home"> 
+	<h1 style="color: green"> 
+		Please select the details for the individual you want to make a salary prediction for
+	</h1> 
+	<!-- show selection lists for each categorical parameter for the Airbnb listing -->
+	<p> 
+		Select the work class: 
+		<!-- workclass-->
+		<select id="workclass" > 
+		</select> 
+	</p>
+	<p> 
+		<label for="fnlwgt">fnlwgt (20000-150000):</label>
+
+			<input type="number" id="fnlwgt" name="fnlwgt"
+			min="20000" max="150000">
+	</p>
+	<p> 
+		<label for="age">age (18-100):</label>
+
+			<input type="number" id="age" name="age"
+			min="18" max="100">
+	</p>	
+	<p> 
+		Select the education level: 
+		<!-- education -->
+		<select id="education" > 
+		</select> 
+	</p>
+	<p> 
+		<label for="education-num">education years (6 - 16):</label>
+
+			<input type="number" id="education-num" name="education-num"
+			min="6" max="16">
+	</p>
+	<p> 
+		<label for="hours-per-week">hours-per-week (10 - 80):</label>
+
+			<input type="number" id="hours-per-week" name="hours-per-week"
+			min="10" max="80">
+	</p>
+	<p> 
+		<label for="capital-gain">capital-gain (0 - 80):</label>
+
+			<input type="number" id="capital-gain" name="capital-gain"
+			min="0" max="80">
+	</p>
+	<p> 
+		<label for="capital-loss">capital-loss (0 - 80):</label>
+
+			<input type="number" id="capital-loss" name="capital-loss"
+			min="0" max="80">
+	</p>
+	<p>
+		Select the marital status:
+		<select id="marital-status">
+		</select>
+	</p>
+	<p>
+		Select occupation:
+		<select id="occupation">
+		</select>
+	</p>
+	<p>
+		Select relationship:
+		<select id="relationship">
+		</select>
+	</p>
+	<p>
+		Select race:
+		<select id="race">
+		</select>
+	</p>
+	<p>
+		Select sex:
+		<select id="sex">
+		</select>
+	</p>
+	<p>
+		Select native-country:
+		<select id="native-country">
+		</select>
+	</p>
+
+
+	
+	<!-- button to invoke JS functions that assemble selected scoring parameters and link to show-prediction.html -->
+	<button>
+	<a onclick="link_with_args();" style="font-size : 20px; width: 100%; height: 100px;">Get prediction</a>
+	</button>
+	
+	<!-- echo the link (including scoring parameters) to show-prediction.html -->
+	<p> 
+		The value of the option selected is: 
+		<span class="output"></span> 
+	</p> 
+	
+
+	
+	<script type="text/javascript"> 
+		function getOption() { 
+			// load selections from HTML controls into JS variables
+			selectElementworkclass = document.querySelector('#workclass'); 
+			selectElementeducation = document.querySelector('#education');
+			selectElementmaritalstatus = document.querySelector('#marital-status');
+			selectElementoccupation = document.querySelector('#occupation');
+			selectElementrelationship = document.querySelector('#relationship');
+			selectElementrace = document.querySelector('#race');
+			selectElementsex = document.querySelector('#sex');
+			selectElementnativecountry = document.querySelector('#native-country');
+			// load values of continuous scoring parameters
+			fnlwgt_value = document.getElementById("fnlwgt").value;
+			age_value = document.getElementById("age").value;
+			education_num_value = document.getElementById("education-num").value;
+			hours_per_week_value = document.getElementById("hours-per-week").value;
+			capital_gain_value = document.getElementById("capital-gain").value;		
+			capital_loss_value = document.getElementById("capital-loss").value;
+			// load the values selected for the scoring parameters into JS variables
+			workclass_string = selectElementworkclass.options[selectElementworkclass.selectedIndex].value
+			education_string = selectElementeducation.options[selectElementeducation.selectedIndex].value
+			marital_status_string = selectElementmaritalstatus.options[selectElementmaritalstatus.selectedIndex].value
+			occupation_string = selectElementoccupation.options[selectElementoccupation.selectedIndex].value
+			relationship_string = selectElementrelationship.options[selectElementrelationship.selectedIndex].value
+			race_string = selectElementrace.options[selectElementrace.selectedIndex].value
+			sex_string = selectElementsex.options[selectElementsex.selectedIndex].value
+			native_country_string = selectElementnativecountry.options[selectElementnativecountry.selectedIndex].value
+			// build complete URL, including scoring parameters, for the result display page
+			//
+			prefix = "/show-prediction/?"
+			window.output = prefix.concat("workclass=",workclass_string,"&age=",age_value,"&fnlwgt=",fnlwgt_value,"&education=",education_string,"&education-num=",education_num_value,"&marital-status=",marital_status_string,"&occupation=",occupation_string,"&relationship=",relationship_string,"&race=",race_string,"&sex=",sex_string,"&capital-gain=",capital_gain_value,"&capital-loss=",capital_loss_value,"&hours-per-week=",hours_per_week_value,"&native-country=",native_country_string);
+			document.querySelector('.output').textContent = window.output; 
+		} 
+	</script> 
+	<script>
+	function link_with_args(){
+	// call getOption to create the URL (including scoring parameters) from HTML control selections
+	getOption();	
+	console.log("in link_with_args");
+	console.log(window.output);
+	// specify the target of the link = the URL generated by getOption
+	window.location.href = window.output;
+	}		
+	</script>
+	<script>
+	function load_selections(){
+	// initialize all selections
+	var select_workclass = document.getElementById("workclass"); 
+	var select_education = document.getElementById("education"); 
+	var select_marital_status = document.getElementById("marital-status");
+	var select_occupation = document.getElementById("occupation");
+	var select_relationship = document.getElementById("relationship");
+	var select_race = document.getElementById("race");
+	var select_sex = document.getElementById("sex");
+	var select_native_country = document.getElementById("native-country");
+	var workclass_list = [" Private" ," Self-emp-inc" ," Self-emp-not-inc" ," State-gov" ," Federal-gov" ," Local-gov" ];
+	var education_list = [" 7th-8th" ," 9th" ," 10th" ," 11th" ," 12th" ," HS-grad" ," Assoc-voc" ," Assoc-acdm" ," Prof-school" ," Some-college" ," Bachelors" ," Masters" ," Doctorate" ];
+	var marital_status_list = [" Married-civ-spouse" ," Divorced" ," Never-married" ," Widowed" ," Married-spouse-absent" ," Separated" ];
+	var occupation_list = [" Exec-managerial" ," Prof-specialty" ," Other-service" ," Handlers-cleaners" ," Craft-repair" ," Adm-clerical" ," Sales" ," Machine-op-inspct" ," Prof-specialty" ," Handlers-cleaners" ," Craft-repair" ," Exec-managerial" ," Adm-clerical" ," Transport-moving" ," Other-service" ," Farming-fishing" ];
+	var relationship_list = [" Wife" ," Not-in-family" ," Unmarried" ," Husband" ," Own-child" ," Other-relative" ];
+	var race_list = [" White" ," Black" ," Asian-Pac-Islander" ," Amer-Indian-Eskimo" ," Other" ];
+	var sex_list = [" Female" ," Male" ];
+	var native_country_list = ["United-States","Puerto-Rico","Mexico","Canada","Taiwan","Vietnam","Philippines"];
+	// set defaults for numeric input fields:
+	document.getElementById("fnlwgt").defaultValue = 7;
+	document.getElementById("age").defaultValue = 40;
+	document.getElementById("education-num").defaultValue = 12;
+	document.getElementById("hours-per-week").defaultValue = 40;
+	document.getElementById("capital-gain").defaultValue = 0;
+	document.getElementById("capital-loss").defaultValue = 0;
+		
+	// Populate workclass list:
+		for(var i = 0; i < workclass_list.length; i++) {
+			var opt = workclass_list[i];
+			select_workclass.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// initialize education list
+		for(var i = 0; i < education_list.length; i++) {
+			var opt = education_list[i];
+			select_education.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// populate marital-status list
+		for(var i = 0; i < marital_status_list.length; i++) {
+			var opt = marital_status_list[i];
+			select_marital_status.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// populate occupation_list list
+		for(var i = 0; i < occupation_list.length; i++) {
+			var opt = occupation_list[i];
+			select_occupation.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// populate relationship list
+		for(var i = 0; i < relationship_list.length; i++) {
+			var opt = relationship_list[i];
+			select_relationship.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// populate race list
+		for(var i = 0; i < race_list.length; i++) {
+			var opt = race_list[i];
+			select_race.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// populate sex list
+		for(var i = 0; i < sex_list.length; i++) {
+			var opt = sex_list[i];
+			select_sex.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+		// populate marital-status list
+		for(var i = 0; i < native_country_list.length; i++) {
+			var opt = native_country_list[i];
+			select_native_country.innerHTML += "<option value=\"" + opt + "\">" + opt + "</option>";
+		}
+	};
+	
+	</script>
+
+</div>
+</body> 
+
+
+
+
+</html>					 
