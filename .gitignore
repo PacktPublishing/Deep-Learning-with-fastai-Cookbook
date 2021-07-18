@@ -1,4 +1,6 @@
 __pycache__
+*.pkl
+*.pth
 .ipynb_checkpoints
 Untitled*.*
 untitled*.*
