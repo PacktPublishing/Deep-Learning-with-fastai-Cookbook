@@ -1,5 +1,3 @@
-<p align='center'><a href='https://www.eventbrite.com/e/algorithmic-trading-with-python-cohort-2-tickets-1833367644979?aff=oddtdtcreator'><img src='https://static.packt-cdn.com/assets/images/packt+events/Python_for_Algorithmic Trading_v1.png'/></a></p>
-
 # Deep Learning with fastai Cookbook
 
 <a href="https://www.packtpub.com/product/deep-learning-with-fastai-cookbook/9781800208100"><img src="https://static.packt-cdn.com/products/9781800208100/cover/smaller" alt=" Deep Learning with fastai Cookbook" height="256px" align="right"></a>
