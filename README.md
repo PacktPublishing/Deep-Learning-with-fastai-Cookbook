@@ -1,3 +1,5 @@
+<p align='center'><a href='https://www.eventbrite.com/e/ship-production-pytorch-system-in-a-day-train-optimize-deploy-workshop-tickets-1983348934052?aff=GitHub'><img src='https://static.packt-cdn.com/assets/images/packt+events/workshop_ashish_github.png'/></a></p>
+
 # Deep Learning with fastai Cookbook
 
 <a href="https://www.packtpub.com/product/deep-learning-with-fastai-cookbook/9781800208100"><img src="https://static.packt-cdn.com/products/9781800208100/cover/smaller" alt=" Deep Learning with fastai Cookbook" height="256px" align="right"></a>
